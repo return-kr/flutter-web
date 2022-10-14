@@ -43,100 +43,105 @@ class _ApiCallScreenState extends State<ApiCallScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('PDP Flutter'),
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: Icon(Icons.arrow_back_ios_new_rounded),
+    return WillPopScope(
+      onWillPop: () async {
+        return true;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('PDP Flutter'),
+          leading: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: Icon(Icons.arrow_back_ios_new_rounded),
+          ),
         ),
-      ),
-      body: SafeArea(
-        child: StreamBuilder<NewsModel>(
-          stream: newsResponseStream.newsStream,
-          initialData: null,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return ListView.builder(
-                itemCount: snapshot.data?.articles?.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    width: double.infinity,
-                    margin: EdgeInsets.only(left: 10, right: 10, top: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '${snapshot.data?.articles![index].title}',
-                          style: TextStyle(
-                            fontFamily: 'SF',
-                            fontWeight: FontWeight.bold,
-                            color: Colors.green[800],
-                            fontSize: 40,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        ClipRRect(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                          child: Image.network(
-                              "${snapshot.data?.articles![index].urlToImage}"),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              '${snapshot.data?.articles![index].author}',
-                              style:
-                                  TextStyle(fontFamily: 'SF', fontSize: 17),
-                            ),
-                            Spacer(),
-                            Text(
-                              '${snapshot.data?.articles![index].publishedAt}',
-                              style:
-                                  TextStyle(fontFamily: 'SF', fontSize: 17),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          '${snapshot.data?.articles![index].content}',
-                          style: TextStyle(
+        body: SafeArea(
+          child: StreamBuilder<NewsModel>(
+            stream: newsResponseStream.newsStream,
+            initialData: null,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return ListView.builder(
+                  itemCount: snapshot.data?.articles?.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      width: double.infinity,
+                      margin: EdgeInsets.only(left: 10, right: 10, top: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '${snapshot.data?.articles![index].title}',
+                            style: TextStyle(
                               fontFamily: 'SF',
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          '${snapshot.data?.articles![index].description}',
-                          style: TextStyle(
-                              fontFamily: 'SF',
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              );
-            } else {
-              debugPrint('apiSnapshotError_debug: ${snapshot.error}');
-              log('apiSnapshotError_debug: ${snapshot.error}');
-              return SizedBox();
-            }
-          },
+                              fontWeight: FontWeight.bold,
+                              color: Colors.green[800],
+                              fontSize: 40,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          ClipRRect(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                            ),
+                            child: Image.network(
+                                "${snapshot.data?.articles![index].urlToImage}"),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                '${snapshot.data?.articles![index].author}',
+                                style:
+                                    TextStyle(fontFamily: 'SF', fontSize: 17),
+                              ),
+                              Spacer(),
+                              Text(
+                                '${snapshot.data?.articles![index].publishedAt}',
+                                style:
+                                    TextStyle(fontFamily: 'SF', fontSize: 17),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            '${snapshot.data?.articles![index].content}',
+                            style: TextStyle(
+                                fontFamily: 'SF',
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            '${snapshot.data?.articles![index].description}',
+                            style: TextStyle(
+                                fontFamily: 'SF',
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                );
+              } else {
+                debugPrint('apiSnapshotError_debug: ${snapshot.error}');
+                log('apiSnapshotError_debug: ${snapshot.error}');
+                return SizedBox();
+              }
+            },
+          ),
         ),
       ),
     );

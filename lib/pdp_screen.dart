@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pdp_flutter/api_call_screen.dart';
 import 'package:pdp_flutter/constant.dart';
 import 'package:pdp_flutter/counter_stream.dart';
@@ -196,7 +197,10 @@ class _PdpScreenState extends State<PdpScreen> {
                                       height: 20,
                                     ),
                                     ElevatedButton.icon(
-                                      onPressed: () {navigateToNewsScreen(context);},
+                                      onPressed: () {
+                                        // navigateToNewsScreen(context);
+                                        context.go('/api');
+                                      },
                                       icon: Icon(Icons.get_app),
                                       style: ElevatedButton.styleFrom(
                                         elevation: 0,
@@ -324,7 +328,11 @@ class _PdpScreenState extends State<PdpScreen> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 ElevatedButton.icon(
-                                                  onPressed: () {navigateToNewsScreen(context);},
+                                                  onPressed: () {
+                                                    // navigateToNewsScreen(
+                                                    //     context);
+                                                    context.go('/api');
+                                                  },
                                                   icon: Icon(Icons.get_app),
                                                   style:
                                                       ElevatedButton.styleFrom(
@@ -385,7 +393,11 @@ class _PdpScreenState extends State<PdpScreen> {
                                           : Row(
                                               children: [
                                                 ElevatedButton.icon(
-                                                  onPressed: () {navigateToNewsScreen(context);},
+                                                  onPressed: () {
+                                                    // navigateToNewsScreen(
+                                                    //     context);
+                                                    context.go('/api');
+                                                  },
                                                   icon: Icon(Icons.get_app),
                                                   style:
                                                       ElevatedButton.styleFrom(
